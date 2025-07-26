@@ -12,6 +12,13 @@
       href="assets/img/kaiadmin/favicon.ico"
       type="image/x-icon"
     />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harbiy Ma'lumotlar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="kun/styles.css">
 
     <!-- Fonts and icons -->
     <script src="assets/js/plugin/webfont/webfont.min.js"></script>
@@ -32,6 +39,20 @@
         },
       });
     </script>
+
+    <style>
+        .required-field::after {
+            content: " *";
+            color: red;
+        }
+        .department-header {
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
+        .department-row td {
+            border-top: none !important;
+        }
+    </style>
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
@@ -107,12 +128,38 @@
               </li>
 
               <li class="nav-item">
-                <a  href="nomroyxat.html">
+                <a  href="index.html">
                   <i class="fas fa-list"></i>
-                  <p>Nomma-nom ro'yxat</p>
+                  <p>Safardagilar</p>
                   <span class=""></span>
                 </a>
               </li>
+
+              <li class="nav-item">
+                <a  href="index.html">
+                  <i class="fas fa-list"></i>
+                  <p>Navbarchilar ro'yxati</p>
+                  <span class=""></span>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a  href="index.html">
+                  <i class="fas fa-list"></i>
+                  <p>Doklat vaqti</p>
+                  <span class=""></span>
+                </a>
+              </li>
+              
+              
+              <li class="nav-item">
+                <a  href="index.html">
+                  <i class="fas fa-list"></i>
+                  <p>Telefon raqamlar</p>
+                  <span class=""></span>
+                </a>
+              </li>
+              
               
               
               
@@ -258,263 +305,100 @@
         </div>
 
         <!-- Asosiy qism  -->
+          <div class="container">
+           <div class="page-inner">
+            <div class="container py-5">
+            <h1 class="text-center mb-4">##### HARBIY QISM SHAXSIY TARKIBINING NOMMA-NOM RO'YXATI</h1>
+        
+        <button class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addModal">
+            <i class="bi bi-plus-circle"></i> Yangi qo'shish
+        </button>
+        
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>№</th>
+                        <th>Harbiy Unvon</th>
+                        <th>F.I.SH</th>
+                        <th>Tug'ilgan Sana</th>
+                        <th>Izoh</th>
+                        <th>Amallar</th>
+                    </tr>
+                </thead>
+                <tbody id="dataTable">
+                    <!-- Ma'lumotlar JavaScript orqali tartiblanib chiqadi -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        <div class="container">
-          <div class="page-inner">
-            <div class="page-header">
-              <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">
-                    <div class="d-flex align-items-center">
-                      <h4 class="card-title"> <h3>0000-Harbiy qism </h3> XIZMAT SAFARIDAGI XARBIY XIZMATCHILAR XISOBI</h4>
-                      <button
-                        class="btn btn-primary btn-round ms-auto"
-                        data-bs-toggle="modal"
-                        data-bs-target="#addRowModal"
-                      >
-                        <i class="fa fa-plus"></i>
-                        Qo'shish
-                      </button>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <!-- Modal -->
-                    <div
-                      class="modal fade"
-                      id="addRowModal"
-                      tabindex="-1"
-                      role="dialog"
-                      aria-hidden="true"
-                    >
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header border-0">
-                            <h5 class="modal-title">
-                              <span class="fw-mediumbold"> Yangi</span>
-                              <span class="fw-light"> Ustun </span>
-                            </h5>
-                            <button
-                              type="button"
-                              class="close"
-                              data-dismiss="modal"
-                              aria-label="Close"
-                            >
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <p class="small">
-                              Create a new row using this form, make sure you
-                              fill them all
-                            </p>
-                            <form>
-                              <div class="row">
-                                <div class="col-sm-12">
-                                  <div class="form-group form-group-default">
-                                    <label>Ism</label>
-                                    <input
-                                      id="addName"
-                                      type="text"
-                                      class="form-control"
-                                      placeholder="fill name"
-                                    />
-                                  </div>
-                                </div>
-                                <div class="col-md-6 pe-0">
-                                  <div class="form-group form-group-default">
-                                    <label>Position</label>
-                                    <input
-                                      id="addPosition"
-                                      type="text"
-                                      class="form-control"
-                                      placeholder="fill position"
-                                    />
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group form-group-default">
-                                    <label>Office</label>
-                                    <input
-                                      id="addOffice"
-                                      type="text"
-                                      class="form-control"
-                                      placeholder="fill office"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-footer border-0">
-                            <button
-                              type="button"
-                              id="addRowButton"
-                              class="btn btn-primary"
-                            >
-                              Add
-                            </button>
-                            <button
-                              type="button"
-                              class="btn btn-danger"
-                              data-dismiss="modal"
-                            >
-                              Close
-                            </button>
-                          </div>
+    <!-- Modal oyna -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Yangi harbiy ma'lumot</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="militaryForm">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="department" class="form-label required-field">Boshqarma (h/q)</label>
+                            <input type="text" class="form-control" id="department" required placeholder="Masalan: 1-harbiy qism">
                         </div>
-                      </div>
+                        <div class="mb-3">
+                            <label for="rank" class="form-label required-field">Harbiy Unvon</label>
+                            <select class="form-select" id="rank" required>
+                                <option value="General">General</option>
+                                <option value="Polkovnik">Polkovnik</option>
+                                <option value="Polkovnik">Podpolkovnik</option>
+                                <option value="Mayor">Mayor</option>
+                                <option value="Kapitan">Kapitan</option>
+                                <option value="Kapitan">Katta leytenant</option>
+                                <option value="Leytenant">Leytenant</option>
+                                <option value="Serjant">Master serjant</option>
+                                <option value="Serjant">Katta serjant</option>
+                                <option value="Serjant">I-darajali serjant</option>
+                                <option value="Serjant">II-darajali serjant </option>
+                                <option value="Serjant">III-darajali serjant</option>
+                                <option value="Serjant">kichik serjant</option>
+                                <option value="Serjant">KBHX o/a</option>
+                                <option value="Serjant">oddiy askar</option>
+                                <option value="Serjant">QK xizmatchisi</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fullname" class="form-label required-field">F.I.SH</label>
+                            <input type="text" class="form-control" id="fullname" required placeholder="Familiya Ism Sharif">
+                        </div>
+                        <div class="mb-3">
+                            <label for="birthdate" class="form-label required-field">Tug'ilgan Sana</label>
+                            <div class="input-group date" id="datepicker">
+                                <input type="text" class="form-control" id="birthdate" required placeholder="kun.oy.yil">
+                                <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="comment" class="form-label">Izoh</label>
+                            <textarea class="form-control" id="comment" rows="3" placeholder="Qo'shimcha ma'lumotlar..."></textarea>
+                        </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                        <button type="submit" class="btn btn-primary">Saqlash</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                    <div class="table-responsive">
-                      <table
-                        id="add-row"
-                        class="display table table-striped table-hover"
-                      >
-                        <thead>
-                          <tr>
-                            <th>Tadbir turi</th>
-                            <th>Tadbirlar joyi</th>
-                            <th>Soni</th>
-                            <th>Mashg'ulot kattasi</th>
-                            <th>Telefon raqami</th>
-                            <th style="width: 10%">Action</th>
-                          </tr>
-                        </thead>
-                        <tfoot>
-                          <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Action</th>
-                          </tr>
-                        </tfoot>
-                        <tbody>
-                          <tr>
-                            <td>O'qish</td>
-                            <td>35158 harbiy qism</td>
-                            <td>12</td>
-                            <td>k-ta l-nt Anvarov A</td>
-                            <td>881234567</td>
-                            <td>
-                              <div class="form-button-action">
-                                <button
-                                  type="button"
-                                  data-bs-toggle="tooltip"
-                                  title=""
-                                  class="btn btn-link btn-primary btn-lg"
-                                  data-original-title="Edit Task"
-                                >
-                                  <i class="fa fa-edit"></i>
-                                </button>
-                                <button
-                                  type="button"
-                                  data-bs-toggle="tooltip"
-                                  title=""
-                                  class="btn btn-link btn-danger"
-                                  data-original-title="Remove"
-                                >
-                                  <i class="fa fa-times"></i>
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>O'qish</td>
-                            <td>35158 harbiy qism</td>
-                            <td>12</td>
-                            <td>k-ta l-nt Anvarov A</td>
-                            <td>881234567</td>
-                            <td>
-                              <div class="form-button-action">
-                                <button
-                                  type="button"
-                                  data-bs-toggle="tooltip"
-                                  title=""
-                                  class="btn btn-link btn-primary btn-lg"
-                                  data-original-title="Edit Task"
-                                >
-                                  <i class="fa fa-edit"></i>
-                                </button>
-                                <button
-                                  type="button"
-                                  data-bs-toggle="tooltip"
-                                  title=""
-                                  class="btn btn-link btn-danger"
-                                  data-original-title="Remove"
-                                >
-                                  <i class="fa fa-times"></i>
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>O'qish</td>
-                            <td>35158 harbiy qism</td>
-                            <td>12</td>
-                            <td>k-ta l-nt Anvarov A</td>
-                            <td>881234567</td>
-                            <td>
-                              <div class="form-button-action">
-                                <button
-                                  type="button"
-                                  data-bs-toggle="tooltip"
-                                  title=""
-                                  class="btn btn-link btn-primary btn-lg"
-                                  data-original-title="Edit Task"
-                                >
-                                  <i class="fa fa-edit"></i>
-                                </button>
-                                <button
-                                  type="button"
-                                  data-bs-toggle="tooltip"
-                                  title=""
-                                  class="btn btn-link btn-danger"
-                                  data-original-title="Remove"
-                                >
-                                  <i class="fa fa-times"></i>
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>O'qish</td>
-                            <td>35158 harbiy qism</td>
-                            <td>12</td>
-                            <td>k-ta l-nt Anvarov A</td>
-                            <td>881234567</td>
-                            <td>
-                              <div class="form-button-action">
-                                <button
-                                  type="button"
-                                  data-bs-toggle="tooltip"
-                                  title=""
-                                  class="btn btn-link btn-primary btn-lg"
-                                  data-original-title="Edit Task"
-                                >
-                                  <i class="fa fa-edit"></i>
-                                </button>
-                                <button
-                                  type="button"
-                                  data-bs-toggle="tooltip"
-                                  title=""
-                                  class="btn btn-link btn-danger"
-                                  data-original-title="Remove"
-                                >
-                                  <i class="fa fa-times"></i>
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                          
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-             </div>
-                </div>
-              </div> 
+   
+           </div>
+           </div> 
+
+
+
 
 
          <!-- /Asosiy qism -->
@@ -750,10 +634,20 @@
     <!-- Kaiadmin JS -->
     <script src="assets/js/kaiadmin.min.js"></script>
 
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.uz.min.js"></script>
+    <script src="kun/script.js"></script>
+
     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
     <script src="assets/js/setting-demo.js"></script>
     <script src="assets/js/demo.js"></script>
     <script>
+
+
+
+      
       $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
         type: "line",
         height: "70",
@@ -779,78 +673,6 @@
         lineWidth: "2",
         lineColor: "#ffa534",
         fillColor: "rgba(255, 165, 52, .14)",
-      });
-    </script>
-
-
-<!--   Core JS Files   -->
-    <script src="../assets/js/core/jquery-3.7.1.min.js"></script>
-    <script src="../assets/js/core/popper.min.js"></script>
-    <script src="../assets/js/core/bootstrap.min.js"></script>
-
-    <!-- jQuery Scrollbar -->
-    <script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-    <!-- Datatables -->
-    <script src="../assets/js/plugin/datatables/datatables.min.js"></script>
-    <!-- Kaiadmin JS -->
-    <script src="../assets/js/kaiadmin.min.js"></script>
-    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-    <script src="../assets/js/setting-demo2.js"></script>
-    <script>
-      $(document).ready(function () {
-        $("#basic-datatables").DataTable({});
-
-        $("#multi-filter-select").DataTable({
-          pageLength: 5,
-          initComplete: function () {
-            this.api()
-              .columns()
-              .every(function () {
-                var column = this;
-                var select = $(
-                  '<select class="form-select"><option value=""></option></select>'
-                )
-                  .appendTo($(column.footer()).empty())
-                  .on("change", function () {
-                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-                    column
-                      .search(val ? "^" + val + "$" : "", true, false)
-                      .draw();
-                  });
-
-                column
-                  .data()
-                  .unique()
-                  .sort()
-                  .each(function (d, j) {
-                    select.append(
-                      '<option value="' + d + '">' + d + "</option>"
-                    );
-                  });
-              });
-          },
-        });
-
-        // Add Row
-        $("#add-row").DataTable({
-          pageLength: 5,
-        });
-
-        var action =
-          '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-
-        $("#addRowButton").click(function () {
-          $("#add-row")
-            .dataTable()
-            .fnAddData([
-              $("#addName").val(),
-              $("#addPosition").val(),
-              $("#addOffice").val(),
-              action,
-            ]);
-          $("#addRowModal").modal("hide");
-        });
       });
     </script>
   </body>

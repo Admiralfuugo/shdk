@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.container {
+  padding: 20px;
+}
+
+.page-inner {
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+th, td {
+  border: 0.5px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: rgb(222, 234, 246);
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.add-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 6px 10px;
+  text-decoration: none;
+  display: block;
+  font-size: 13px;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.emoji-menu {
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0 6px;
+  user-select: none;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 15px;
+  border: 1px solid #888;
+  width: 400px;
+  border-radius: 5px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: black;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+.submit-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 14px;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+.form-title {
+  margin-top: 0;
+  color: #333;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+/* O'rta boshliq uchun */
+.orta-boshliq {
+  background-color: rgb(255, 242, 204);
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Boshqarma va bo'lim kiritish uchun */
+.boshqarma-bolim-input {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 5px;
+}
+
+.boshqarma-bolim-input input {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  width: 200px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="page-inner">
+    <div class="add-button-container">
+      <button class="add-button" onclick="openModal()">+ Qo'shish</button>
+    </div>
+    
+    <table border="1" cellspacing="0" cellpadding="5" width="100%" style="border-width: 0.5px;">
+      <tr style="background-color: rgb(222, 234, 246)">
+        <th>T/R</th>
+        <th>F.I.Sh.</th>
+        <th>Tug'ilgan yili</th>
+        <th>Izoh</th>
+        <th style="width: 40px;"></th>
+      </tr>
+      
+      <!-- 1-Boshqarma va uning bo'limlari -->
+      <tr class="orta-boshliq">
+        <td colspan="5">
+          <div class="boshqarma-bolim-input">
+            <input type="text" id="boshqarma1" value="Boshqarma 1" onchange="updateBoshqarma(1, this.value)">
+            <input type="text" id="bolim1" value="Bo'lim 1" onchange="updateBolim(1, this.value)">
+          </div>
+        </td>
+      </tr>
+      
+      <!-- 1-Boshqarma 1-Bo'lim xodimlari -->
+      <tr>
+        <td align="center">1</td>
+        <td>Aliyev Valijon</td>
+        <td>12.05.1985</td>
+        <td>Dasturchi</td>
+        <td>
+          <div class="dropdown">
+            <span class="emoji-menu" onclick="toggleMenu(this)">⚙️</span>
+            <div class="dropdown-content">
+              <a href="#" onclick="editRow(this)">✏️ Tahrirlash</a>
+              <a href="#" onclick="deleteRow(this)">🗑️ O'chirish</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">2</td>
+        <td>Karimova Sarvinoz</td>
+        <td>15.08.1990</td>
+        <td>Dizayner</td>
+        <td>
+          <div class="dropdown">
+            <span class="emoji-menu" onclick="toggleMenu(this)">⚙️</span>
+            <div class="dropdown-content">
+              <a href="#" onclick="editRow(this)">✏️ Tahrirlash</a>
+              <a href="#" onclick="deleteRow(this)">🗑️ O'chirish</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+      
+      <!-- 2-Boshqarma va uning bo'limlari -->
+      <tr class="orta-boshliq">
+        <td colspan="5">
+          <div class="boshqarma-bolim-input">
+            <input type="text" id="boshqarma2" value="Boshqarma 2" onchange="updateBoshqarma(2, this.value)">
+            <input type="text" id="bolim2" value="Bo'lim 2" onchange="updateBolim(2, this.value)">
+          </div>
+        </td>
+      </tr>
+      
+      <!-- 2-Boshqarma 2-Bo'lim xodimlari -->
+      <tr>
+        <td align="center">3</td>
+        <td>Nosirov Jamshid</td>
+        <td>03.11.1988</td>
+        <td>Muhandis</td>
+        <td>
+          <div class="dropdown">
+            <span class="emoji-menu" onclick="toggleMenu(this)">⚙️</span>
+            <div class="dropdown-content">
+              <a href="#" onclick="editRow(this)">✏️ Tahrirlash</a>
+              <a href="#" onclick="deleteRow(this)">🗑️ O'chirish</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- Modal forma -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 class="form-title" id="modalTitle">Yangi qo'shish</h2>
+    <form id="dataForm">
+      <input type="hidden" id="rowIndex">
+      <div class="form-group">
+        <label for="fish">F.I.Sh.:</label>
+        <input type="text" id="fish" required>
+      </div>
+      <div class="form-group">
+        <label for="yil">Tug'ilgan yili:</label>
+        <input type="date" id="yil" required>
+      </div>
+      <div class="form-group">
+        <label for="izoh">Izoh:</label>
+        <input type="text" id="izoh">
+      </div>
+      <button type="button" class="submit-btn" onclick="submitForm()">Saqlash</button>
+    </form>
+  </div>
+</div>
+
+<script>
+let currentRow = null;
+let currentBoshqarmaId = null;
+
+// Boshqarma nomini yangilash
+function updateBoshqarma(id, value) {
+  // Bu yerda boshqarma nomini yangilash logikasi bo'lishi kerak
+  console.log(`Boshqarma ${id} yangilandi: ${value}`);
+}
+
+// Bo'lim nomini yangilash
+function updateBolim(id, value) {
+  // Bu yerda bo'lim nomini yangilash logikasi bo'lishi kerak
+  console.log(`Bo'lim ${id} yangilandi: ${value}`);
+}
+
+// Modalni ochish
+function openModal(row = null, boshqarmaId = null) {
+  const modal = document.getElementById("myModal");
+  const modalTitle = document.getElementById("modalTitle");
+  
+  currentBoshqarmaId = boshqarmaId;
+  
+  if (row) {
+    // Tahrirlash uchun
+    modalTitle.textContent = "Tahrirlash";
+    currentRow = row.closest('tr');
+    
+    document.getElementById("fish").value = currentRow.cells[1].textContent;
+    document.getElementById("yil").value = formatDateForInput(currentRow.cells[2].textContent);
+    document.getElementById("izoh").value = currentRow.cells[3].textContent;
+  } else {
+    // Yangi qo'shish uchun
+    modalTitle.textContent = "Yangi qo'shish";
+    currentRow = null;
+    document.getElementById("dataForm").reset();
+  }
+  
+  modal.style.display = "block";
+}
+
+// Modalni yopish
+function closeModal() {
+  document.getElementById("myModal").style.display = "none";
+}
+
+// Formani yuborish
+function submitForm() {
+  const fish = document.getElementById("fish").value;
+  const yil = document.getElementById("yil").value;
+  const izoh = document.getElementById("izoh").value;
+  
+  if (!fish || !yil) {
+    alert("Iltimos, barcha majburiy maydonlarni to'ldiring!");
+    return;
+  }
+  
+  const formattedDate = formatDateForDisplay(yil);
+  
+  if (currentRow) {
+    // Tahrirlash
+    currentRow.cells[1].textContent = fish;
+    currentRow.cells[2].textContent = formattedDate;
+    currentRow.cells[3].textContent = izoh;
+  } else {
+    // Yangi qo'shish
+    const table = document.querySelector('table');
+    let insertPosition = -1;
+    
+    // Boshqarma qatoridan keyingi joyga qo'shish
+    if (currentBoshqarmaId) {
+      const boshqarmaRows = document.querySelectorAll('.orta-boshliq');
+      for (let i = 0; i < boshqarmaRows.length; i++) {
+        if (boshqarmaRows[i].querySelector('input[id^="boshqarma"]').id === `boshqarma${currentBoshqarmaId}`) {
+          // Keyingi boshqarma qatorini topish
+          for (let j = i + 1; j < boshqarmaRows.length; j++) {
+            if (boshqarmaRows[j]) {
+              insertPosition = Array.from(table.rows).indexOf(boshqarmaRows[j]);
+              break;
+            }
+          }
+          break;
+        }
+      }
+    }
+    
+    const newRow = insertPosition === -1 
+      ? table.insertRow(table.rows.length)
+      : table.insertRow(insertPosition);
+    
+    const trCell = newRow.insertCell(0);
+    const fishCell = newRow.insertCell(1);
+    const yilCell = newRow.insertCell(2);
+    const izohCell = newRow.insertCell(3);
+    const actionCell = newRow.insertCell(4);
+    
+    trCell.align = "center";
+    trCell.textContent = table.rows.length - 2;
+    fishCell.textContent = fish;
+    yilCell.textContent = formattedDate;
+    izohCell.textContent = izoh;
+    
+    actionCell.innerHTML = `
+      <div class="dropdown">
+        <span class="emoji-menu" onclick="toggleMenu(this)">⚙️</span>
+        <div class="dropdown-content">
+          <a href="#" onclick="editRow(this)">✏️ Tahrirlash</a>
+          <a href="#" onclick="deleteRow(this)">🗑️ O'chirish</a>
+        </div>
+      </div>
+    `;
+  }
+  
+  closeModal();
+  updateRowNumbers();
+}
+
+// Menyni ochish/yopish
+function toggleMenu(element) {
+  const dropdown = element.nextElementSibling;
+  if (dropdown.style.display === "block") {
+    dropdown.style.display = "none";
+  } else {
+    dropdown.style.display = "block";
+  }
+}
+
+// Qatorni tahrirlash
+function editRow(element) {
+  openModal(element);
+}
+
+// Qatorni o'chirish
+function deleteRow(element) {
+  if (confirm("Haqiqatan ham ushbu qatorni o'chirmoqchimisiz?")) {
+    const row = element.closest('tr');
+    row.remove();
+    updateRowNumbers();
+  }
+}
+
+// Qator raqamlarini yangilash
+function updateRowNumbers() {
+  const rows = document.querySelectorAll('table tr');
+  let counter = 1;
+  
+  rows.forEach((row, index) => {
+    if (index > 0 && !row.classList.contains('orta-boshliq')) {
+      row.cells[0].textContent = counter++;
+    }
+  });
+}
+
+// Sana formatini o'zgartirish (input uchun)
+function formatDateForInput(dateStr) {
+  if (!dateStr) return '';
+  const parts = dateStr.split('.');
+  if (parts.length === 3) {
+    return `${parts[2]}-${parts[1]}-${parts[0]}`;
+  }
+  return '';
+}
+
+// Sana formatini o'zgartirish (display uchun)
+function formatDateForDisplay(dateStr) {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}.${month}.${year}`;
+}
+
+// Tashqariga bosganda menyuni yopish
+window.onclick = function(event) {
+  const modal = document.getElementById("myModal");
+  if (event.target === modal) {
+    closeModal();
+  }
+  
+  if (!event.target.matches('.emoji-menu')) {
+    const dropdowns = document.querySelectorAll(".dropdown-content");
+    dropdowns.forEach(dropdown => {
+      dropdown.style.display = "none";
+    });
+  }
+}
+</script>
+
+</body>
+</html>

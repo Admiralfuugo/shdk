@@ -1,0 +1,18 @@
+/* Qo'shimcha dark mode stillari */
+[data-bs-theme="dark"] {
+    --bs-body-color: #ffffff;
+    --bs-body-bg: #121212;
+    --bs-card-bg: #1e1e1e;
+    --bs-border-color: #333;
+}
+
+[data-bs-theme="dark"] .table {
+    --bs-table-color: #fff;
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: rgba(255, 255, 255, 0.05);
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .table-dark {
+    --bs-table-bg: #343a40;
+}
